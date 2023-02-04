@@ -2,7 +2,6 @@ archlinux-wallpaper
 cantarell-fonts
 freetype2
 gnome
-gnome-extra
 mesa
 noto-fonts
 opendesktop-fonts
