@@ -13,7 +13,7 @@ To make sure you have an internet connection, you have to ask Mr. Google:
 
 ### Wifi card
 
-    use [iwtcl](https://man.archlinux.org/man/community/iwd/iwctl.1.en)
+use [iwtcl](https://man.archlinux.org/man/community/iwd/iwctl.1.en)
 
 ## Add best Arch mirrors
 
@@ -103,7 +103,7 @@ I'm going to show you only the commands you need to enter.
    Enter name: BOOT
 ```
 
-#### Data partition (ROOT)
+#### Root partition (ROOT)
 
 ```
    Command: N
@@ -252,39 +252,33 @@ And add this content to the file:
 
 ```
    127.0.0.1    localhost
-   ::1          localhost 
+   ::1          localhost
    127.0.0.1    hostname.localdomain    hostname
 ```
 
 Replace "hostname" with your computer name.
 
-### Enable SSH, NetworkManager and DHCP
+## Install packages
 
-These services will be started automatically when the system boots up.
-
-```
-   # pacman -S dhcpcd networkmanager network-manager-applet
-   # systemctl enable sshd
-   # systemctl enable dhcpcd
-   # systemctl enable NetworkManager
-```
-
-### Install bootloader
+Enable color & adjust pacman parallel download
 
 ```
-   # pacman -S grub-efi-x86_64 efibootmgr
-   # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
-   # grub-mkconfig -o /boot/grub/grub.cfg
+   # nano /etc/pacman.conf
 ```
 
-You can replace "arch" with the id of your choice.
-
-
-### Install other useful packages
+### Uncomment
 
 ```
-   # pacman -S iw wpa_supplicant dialog intel-ucode git reflector lshw unzip htop
-   # pacman -S wget pulseaudio alsa-utils alsa-plugins pavucontrol xdg-user-dirs
+   #Color
+   #ParallelDownloads = 5
+```
+
+Clone and Install packages
+
+```
+   # git clone https://github.com/Brix101/arch-i3-btrfs-guid.git
+   # cd arch-i3-btrfs-guid
+   # pacman -S --needed - < LIST.txt
 ```
 
 ### Update root password
@@ -293,33 +287,19 @@ You can replace "arch" with the id of your choice.
    # passwd
 ```
 
-### Final steps
-
-```
-   # exit
-   # umount -R /mnt
-   # swapoff /dev/sda2
-   # reboot
-```
-
-## Post-install configuration
-
-Now your computer has restarted and in the login window on the tty1 console you
-can log in with the root user and the password chosen in the previous step.
-
 ### Add your user
 
-Assuming your chosen user is "thinkpad":
+Assuming your chosen user is "newUser":
 
 ```
-   # useradd -m -g users -G wheel,storage,power,audio thinkpad
-   # passwd thinkpad
+   # useradd -m -g users -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,optical,lp,audio,wheel,adm -s /bin/zsh newUser
+   # passwd newUser
 ```
 
 ### Grant root access to our user
 
 ```
-   # EDITOR=nvim visudo
+   # visudo /etc/sudoers
 ```
 
 If you prefer not to be prompted for a password every time you run a command
@@ -335,6 +315,60 @@ uncomment this line:
 ```
    %wheel ALL=(ALL) ALL
 ```
+
+### Install bootloader
+
+```
+   # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
+   # grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Add btrfs on mkinitcpio
+
+add on binaries for system repair
+
+```
+   BINARIES=(btrfs)
+```
+
+### Mkinitcpio
+
+```
+   # mkinitcpio -p linux
+```
+
+You can replace "ArchLinux" with the id of your choice.
+
+### Enable SSH, NetworkManager and DHCP
+
+These services will be started automatically when the system boots up.
+
+```
+   # systemctl enable avahi-daemon
+   # systemctl enable bluetooth
+   # systemctl enable haveged
+   # systemctl enable cups
+   # systemctl enable firewalld
+   # systemctl enable fstrim.timer
+   # systemctl enable sshd
+   # systemctl enable dhcpcd
+   # systemctl enable NetworkManager
+   # systemctl enable reflector.timer
+   # systemctl enable upower
+```
+
+### Final steps
+
+```
+   # exit
+   # umount -a
+   # reboot
+```
+
+## Post-install configuration
+
+Now your computer has restarted and in the login window on the tty1 console you
+can log in with the root user and the password chosen in the previous step.
 
 ### Login into newly created user
 
@@ -357,6 +391,8 @@ TL;DR AUR is a Community-driven package repository.
    $ cd yay
    $ makepkg -si
 ```
+
+# `Install desktop manager /display manager `
 
 ### The coolest Pacman
 
@@ -387,7 +423,6 @@ If you want to manage your computer's volume from a small icon in the systray:
 ```
    $ sudo pacman -S tlp tlp-rdw powertop acpi
    $ sudo systemctl enable tlp
-   $ sudo systemctl enable tlp-sleep
    $ sudo systemctl mask systemd-rfkill.service
    $ sudo systemctl mask systemd-rfkill.socket
 ```
@@ -398,19 +433,13 @@ If your laptop is a ThinkPad, also run this:
    $ sudo pacman -S acpi_call
 ```
 
-### Enable SSD TRIM
-
-```
-   $ sudo systemctl enable fstrim.timer
-```
-
 ## i3-gaps related steps
 
 ### Install graphical environment and i3
 
 ```
    $ sudo pacman -S xorg-server xorg-apps xorg-xinit
-   $ sudo pacman -S i3-gaps i3blocks i3lock numlockx
+   $ sudo pacman -S i3-wm i3blocks i3lock i3Status numlockx
 ```
 
 ### Install display manager
