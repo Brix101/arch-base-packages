@@ -4,6 +4,7 @@ base-devel
 btrfs-progs
 dhclient
 dhcpcd
+dialog
 efibootmgr
 ethtool
 gnu-netcat
@@ -15,6 +16,7 @@ iwd
 libusb-compat
 linux
 linux-firmware
+lshw 
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
