@@ -1,10 +1,9 @@
-archlinux-wallpaper
-cantarell-fonts
-freetype2
-gnome
-mesa
 noto-fonts
-opendesktop-fonts
+ttf-dejavu ttf-freefont
+ttf-liberation 
+ttf-droid 
+ttf-roboto 
+terminus-font
 ttf-bitstream-vera
 ttf-caladea
 ttf-carlito
@@ -15,3 +14,4 @@ ttf-liberation
 ttf-opensans
 ttf-roboto
 ttf-ubuntu-font-family
+ttf-fira-code
