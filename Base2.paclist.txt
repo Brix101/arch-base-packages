@@ -7,7 +7,6 @@ git
 haveged
 hwdetect
 linux-headers
-p7zip
 packagekit
 pacman-contrib
 pacutils
