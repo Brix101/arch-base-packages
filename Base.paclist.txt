@@ -1,5 +1,6 @@
 alsa-utils
 base
+base-devel
 btrfs-progs
 dhclient
 dhcpcd
