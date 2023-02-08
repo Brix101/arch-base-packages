@@ -20,3 +20,5 @@ unzip
 upower
 tlp-rdw
 powertop
+pavucontrol
+xdg-user-dirs
