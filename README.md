@@ -139,6 +139,8 @@ I'm going to show you only the commands you need to enter.
 ### Btrfs Create Subvol
 
 ```
+# cd /
+   
    # btrfs su cr @
    # btrfs su cr @cache
    # btrfs su cr @home
