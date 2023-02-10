@@ -503,20 +503,6 @@ tried it, it looks very cool.
    $ sudo pacman -S zsh
 ```
 
-#### Oh My Zsh
-
-There is also a set of add-ons that we install on top of `zsh` that provide us
-a series of interesting goodies, as well as a new and improved prompt.
-
-To install [Oh My Zsh](https://ohmyz.sh) we need to run the following command:
-
-```
-   $ sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-```
-
-During the execution of the command you will be asked if you want to set `zsh`
-as the default shell for your user. You have to confirm this.
-
 ### LXAppearance
 
 With LXAppearance you can change themes, icons, cursors or fonts.
