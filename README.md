@@ -139,7 +139,7 @@ I'm going to show you only the commands you need to enter.
 ### Btrfs Create Subvol
 
 ```
-# cd /
+   # cd /
    
    # btrfs su cr @
    # btrfs su cr @cache
