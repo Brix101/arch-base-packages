@@ -11,8 +11,6 @@ packagekit
 pacman-contrib
 pacutils
 pkgfile
-python-setuptools
-python-sphinx
 tlp
 udisks2
 unrar
