@@ -1,8 +1,9 @@
 noto-fonts
-ttf-dejavu ttf-freefont
-ttf-liberation 
-ttf-droid 
-ttf-roboto 
+ttf-dejavu
+ttf-freefont
+ttf-liberation
+ttf-droid
+ttf-roboto
 terminus-font
 ttf-bitstream-vera
 ttf-caladea
