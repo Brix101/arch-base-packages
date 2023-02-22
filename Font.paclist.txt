@@ -16,3 +16,5 @@ ttf-opensans
 ttf-roboto
 ttf-ubuntu-font-family
 ttf-fira-code
+ttf-fira-mono
+ttf-hack
