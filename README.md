@@ -233,7 +233,7 @@ Now you have to uncomment the language of your choice, for example
 Set locale:
 
 ```
-   # echo LANG=en_US.UTF-8.UTF-8 > /etc/locale.conf
+   # echo LANG=en_US.UTF-8 > /etc/locale.conf
 ```
 
 ### Choose a name for your computer
@@ -294,7 +294,7 @@ Clone and Install packages
 Assuming your chosen user is "newUser":
 
 ```
-   # useradd -m -g users -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,optical,lp,audio,wheel,adm -s /bin/zsh newUser
+   # useradd -m -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,optical,lp,audio,wheel,adm -s /bin/zsh newUser
    # passwd newUser
 ```
 
