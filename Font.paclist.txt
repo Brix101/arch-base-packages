@@ -18,3 +18,7 @@ ttf-ubuntu-font-family
 ttf-fira-code
 ttf-fira-mono
 ttf-hack
+inter-font
+ttf-font-awesome
+ttf-jetbrains-mono
+ttf-jetbrains-mono-nerd
