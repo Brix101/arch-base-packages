@@ -9,15 +9,16 @@ intel-ucode
 iw
 iwd
 nano
-neovim
 openssh
 reflector
 rsync
 tmux
 vim
-wpa_supplicant
+neovim
 zsh
 grml-zsh-config
+zsh-syntax-highlighting
+zsh-autosuggestions
 bluez
 bluez-utils
 dkms
@@ -44,6 +45,7 @@ pulseaudio
 avahi
 curl
 dhcpcd
+wpa_supplicant
 dnsutils
 ethtool
 iptables
