@@ -182,7 +182,7 @@ If you run the `lsblk` command you should see something like this:
 ### Install Arch packages
 
 ```
-   # pacstrap -K /mnt base base-devel openssh linux linux-firmware neovim git reflector rsync
+   # pacstrap -K /mnt base base-devel linux linux-firmware vim nano git reflector rsync
 ```
 
 ### Generate fstab file
@@ -216,7 +216,7 @@ For this example I'll use "Europe/Madrid", but adapt it to your zone.
 ### Language-related settings
 
 ```
-   # nvim /etc/locale.gen
+   # vim /etc/locale.gen
 ```
 
 Now you have to uncomment the language of your choice, for example
@@ -237,13 +237,13 @@ Set locale:
 Assuming your computer is known as "hostname":
 
 ```
-   # echo hostname > /etc/hostname
+   # echo archlinux > /etc/hostname
 ```
 
 ### Adding content to the hosts file
 
 ```
-   # nvim /etc/hosts
+   # nano /etc/hosts
 ```
 
 And add this content to the file:
@@ -251,7 +251,7 @@ And add this content to the file:
 ```
    127.0.0.1    localhost
    ::1          localhost
-   127.0.1.1    hostname.localdomain    hostname
+   127.0.1.1    archlinux.localdomain   archlinux
 ```
 
 Replace "hostname" with your computer name.
