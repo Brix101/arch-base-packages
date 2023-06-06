@@ -345,14 +345,13 @@ These services will be started automatically when the system boots up.
    # systemctl enable avahi-daemon
    # systemctl enable bluetooth
    # systemctl enable haveged
-   # systemctl enable cups
-   # systemctl enable firewalld
    # systemctl enable fstrim.timer
    # systemctl enable sshd
    # systemctl enable dhcpcd
    # systemctl enable NetworkManager
    # systemctl enable reflector.timer
    # systemctl enable upower
+   # systemctl enable acpid
 ```
 
 ### Final steps
