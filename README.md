@@ -155,14 +155,14 @@ I'm going to show you only the commands you need to enter.
 ```
    # mount -o compress=zstd:1,noatime,subvol=@ /dev/sda2 /mnt
 
-   # mkdir -p /mnt/{boot,home,.snapshots,var/{log,lib/libvirt/images}}
+   # mkdir -p /mnt/{boot/efi,home,.snapshots,var/{log,lib/libvirt/images}}
 
    # mount -o compress=zstd:1,noatime,subvol=@home /dev/sda2 /mnt/home
    # mount -o compress=zstd:1,noatime,subvol=@images /dev/sda2 /mnt/var/lib/libvirt/images
    # mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sda2 /mnt/.snapshots
    # mount -o compress=zstd:1,noatime,subvol=@var_log /dev/sda2 /mnt/var/log
 
-   # mount /dev/sda1 /mnt/boot
+   # mount /dev/sda1 /mnt/boot/efi
 ```
 
 If you run the `lsblk` command you should see something like this:
@@ -290,7 +290,7 @@ Clone and Install packages
 Assuming your chosen user is "newUser":
 
 ```
-   # useradd -m -G sys,log,network,floppy,scanner,power,rfkill,users,video,storage,optical,lp,audio,wheel,adm -s /bin/zsh newUser
+   # useradd -m -G network,docker,power,rfkill,users,video,storage,audio,wheel -s /bin/zsh newUser
    # passwd newUser
 ```
 
@@ -385,8 +385,8 @@ TL;DR AUR is a Community-driven package repository.
 ```
    $ mkdir Sources
    $ cd Sources
-   $ git clone https://aur.archlinux.org/yay.git
-   $ cd yay
+   $ git clone https://aur.archlinux.org/paru.git
+   $ cd paru
    $ makepkg -si
 ```
 
