@@ -143,6 +143,7 @@ I'm going to show you only the commands you need to enter.
    
    # btrfs su cr @
    # btrfs su cr @home
+   # btrfs su cr @images
    # btrfs su cr @snapshots
    # btrfs su cr @var_log
 
@@ -154,9 +155,10 @@ I'm going to show you only the commands you need to enter.
 ```
    # mount -o compress=zstd:1,noatime,subvol=@ /dev/sda2 /mnt
 
-   # mkdir -p /mnt/{boot,home,.snapshots,var/log}
+   # mkdir -p /mnt/{boot,home,.snapshots,var/{log,lib/libvirt/images}}
 
    # mount -o compress=zstd:1,noatime,subvol=@home /dev/sda2 /mnt/home
+   # mount -o compress=zstd:1,noatime,subvol=@images /dev/sda2 /mnt/var/lib/libvirt/images
    # mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sda2 /mnt/.snapshots
    # mount -o compress=zstd:1,noatime,subvol=@var_log /dev/sda2 /mnt/var/log
 
