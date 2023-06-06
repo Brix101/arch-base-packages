@@ -24,7 +24,7 @@ select your country mirrorlist or remove country
 ```
    # pacman -Sy
    # pacman -S reflector
-   # reflector --country HK --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+   # reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
 ### Color & Parallel Download Settings (Optional)
@@ -64,7 +64,7 @@ this is really your primary disk:
    # lsblk
 ```
 
-Feel free to adapt the rest of the guide to `sdb` or any other if you
+Feel free to adapt the rest of the guide to `sda` or any other if you
 want to install Arch on a secondary hard drive.
 
 This guide will use a 250GB hard disk and will have only Arch Linux installed.
@@ -142,11 +142,9 @@ I'm going to show you only the commands you need to enter.
    # cd /mnt
    
    # btrfs su cr @
-   # btrfs su cr @cache
    # btrfs su cr @home
-   # btrfs su cr @images
-   # btrfs su cr @log
    # btrfs su cr @snapshots
+   # btrfs su cr @var_log
 
    # umount /mnt
 ```
@@ -154,17 +152,15 @@ I'm going to show you only the commands you need to enter.
 ### Mount partitions on btrfs partitions
 
 ```
-   # mount -o compress=zstd:1,noatime,subvol=@ /dev/sdb2 /mnt
+   # mount -o compress=zstd:1,noatime,subvol=@ /dev/sda2 /mnt
 
-   # mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log,lib/libvirt/images}}
+   # mkdir -p /mnt/{boot,home,.snapshots,var/log}
 
-   # mount -o compress=zstd:1,noatime,subvol=@cache /dev/sdb2 /mnt/var/cache
-   # mount -o compress=zstd:1,noatime,subvol=@home /dev/sdb2 /mnt/home
-   # mount -o compress=zstd:1,noatime,subvol=@images /dev/sdb2 /mnt/var/lib/libvirt/images
-   # mount -o compress=zstd:1,noatime,subvol=@log /dev/sdb2 /mnt/var/log
-   # mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sdb2 /mnt/.snapshots
+   # mount -o compress=zstd:1,noatime,subvol=@home /dev/sda2 /mnt/home
+   # mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sda2 /mnt/.snapshots
+   # mount -o compress=zstd:1,noatime,subvol=@var_log /dev/sda2 /mnt/var/log
 
-   # mount /dev/sdb1 /mnt/boot/efi
+   # mount /dev/sda1 /mnt/boot
 ```
 
 If you run the `lsblk` command you should see something like this:
@@ -172,12 +168,10 @@ If you run the `lsblk` command you should see something like this:
 ```
    NAME   MAJ:MIN RM   SIZE  RO TYPE MOUNTPOINT
    sda     254:0   0  232.9G  0 disk
-   ├─sda1  254:1   0    512G  0 part /mnt/boot/efi
+   ├─sda1  254:1   0    512G  0 part /mnt/boot
    └─sda2  254:2   0  231.5G  0 part /mnt/.snapshots
                                      /mnt/var/log
-                                     /mnt/var/lib/libvirt/images
                                      /mnt/home
-                                     /mnt/var/cache
                                      /mnt
 ```
 
@@ -209,10 +203,10 @@ For this example I'll use "Europe/Madrid", but adapt it to your zone.
 
 ```
    # ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
-   # hwclock —-systohc
+   # hwclock --systohc
 
 
-   # reflector --country HK --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+   # reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 
    # pacman -Syy
 ```
@@ -255,7 +249,7 @@ And add this content to the file:
 ```
    127.0.0.1    localhost
    ::1          localhost
-   127.0.0.1    hostname.localdomain    hostname
+   127.0.1.1    hostname.localdomain    hostname
 ```
 
 Replace "hostname" with your computer name.
@@ -336,7 +330,7 @@ add on binaries for system repair
 ### Mkinitcpio
 
 ```
-   # mkinitcpio -p linux
+   # mkinitcpio -P
 ```
 
 You can replace "ArchLinux" with the id of your choice.
