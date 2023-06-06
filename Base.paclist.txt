@@ -5,6 +5,7 @@ dhclient
 dhcpcd
 dialog
 grub
+grub-btrfs
 intel-ucode
 iw
 iwd
@@ -55,3 +56,4 @@ network-manager-applet
 wget
 whois
 openssh
+acpid
