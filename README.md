@@ -172,6 +172,7 @@ If you run the `lsblk` command you should see something like this:
    sda     254:0   0  232.9G  0 disk
    ├─sda1  254:1   0    512G  0 part /mnt/boot
    └─sda2  254:2   0  231.5G  0 part /mnt/.snapshots
+                                     /mnt/var/lib/libvirt/images
                                      /mnt/var/log
                                      /mnt/home
                                      /mnt
@@ -201,7 +202,7 @@ If you run the `lsblk` command you should see something like this:
 
 ### Configure timezone
 
-For this example I'll use "Europe/Madrid", but adapt it to your zone.
+For this example I'll use "Asia/Manila", but adapt it to your zone.
 
 ```
    # ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
@@ -234,7 +235,7 @@ Set locale:
 
 ### Choose a name for your computer
 
-Assuming your computer is known as "hostname":
+Assuming your computer is known as "archlinux":
 
 ```
    # echo archlinux > /etc/hostname
@@ -243,7 +244,7 @@ Assuming your computer is known as "hostname":
 ### Adding content to the hosts file
 
 ```
-   # nano /etc/hosts
+   # vim /etc/hosts
 ```
 
 And add this content to the file:
@@ -290,8 +291,8 @@ Clone and Install packages
 Assuming your chosen user is "newUser":
 
 ```
-   # useradd -m -G network,docker,power,rfkill,users,video,storage,audio,wheel -s /bin/zsh newUser
-   # passwd newUser
+   # useradd -m -G network,docker,power,rfkill,users,video,storage,audio,wheel,input -s /bin/zsh brix
+   # passwd brix
 ```
 
 ### Grant root access to our user
@@ -332,7 +333,7 @@ add on binaries for system repair
 ### Mkinitcpio
 
 ```
-   # mkinitcpio -P
+   # mkinitcpio -p linux
 ```
 
 You can replace "ArchLinux" with the id of your choice.
@@ -352,6 +353,7 @@ These services will be started automatically when the system boots up.
    # systemctl enable reflector.timer
    # systemctl enable upower
    # systemctl enable acpid
+   # systemctl enable firewalld
 ```
 
 ### Final steps
