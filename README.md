@@ -275,7 +275,7 @@ Enable color & adjust pacman parallel download
 Clone and Install packages
 
 ```
-   # git clone https://github.com/Brix101/arch-i3-btrfs-guid.git
+   # git clone https://github.com/Brix101/arch-i3-btrfs-guide.git
    # cd arch-i3-btrfs-guid
    # pacman -S --needed - < LIST.txt
 ```
@@ -288,7 +288,7 @@ Clone and Install packages
 
 ### Add your user
 
-Assuming your chosen user is "newUser":
+Assuming your chosen user is "brix":
 
 ```
    # useradd -m -G network,docker,power,rfkill,users,video,storage,audio,wheel,input -s /bin/zsh brix
