@@ -6,9 +6,9 @@
 
 To make sure you have an internet connection, you have to ask Mr. Google:
 
-```
-    # ip a
-    # ping 8.8.8.8
+```bash
+    ip a
+    ping 8.8.8.8
 ```
 
 ### Wifi card
@@ -21,18 +21,18 @@ To install arch you have to download packages. It's a good idea to download
 them from the best connection mirror.
 select your country mirrorlist or remove country
 
-```
-   # pacman -Sy
-   # pacman -S reflector
-   # reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+```bash
+   pacman -Sy
+   pacman -S reflector
+   reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
-### Color & Parallel Download Settings (Optional)
+> Color & Parallel Download Settings (Optional)
 
 To enable color & adjust pacman parallel download
 
-```
-   # nano /etc/pacman.conf
+```bash
+   nano /etc/pacman.conf
 ```
 
 ### Uncomment
@@ -42,17 +42,17 @@ To enable color & adjust pacman parallel download
    #ParallelDownloads = 5
 ```
 
-### Update the system clock
+## Update the system clock
 
-```
-   # timedatectl set-ntp true
-   # timedatectl status
+```bash
+   timedatectl set-ntp true
+   timedatectl status
 ```
 
-### Synchronize mirror
+## Synchronize mirror
 
-```
-   # pacman -Syy
+```bash
+   pacman -Syy
 ```
 
 ## Partition disk
@@ -60,8 +60,8 @@ To enable color & adjust pacman parallel download
 Your primary disk will be known from now on as `sda`. You can check if
 this is really your primary disk:
 
-```
-   # lsblk
+```bash
+   lsblk
 ```
 
 Feel free to adapt the rest of the guide to `sda` or any other if you
@@ -76,8 +76,8 @@ You'll create 5 partitions of the disk (feel free to suit this to your needs).
 You're going to start by removing all the previous partitions and creating
 the new ones.
 
-```
-   # gdisk /dev/sda
+```bash
+   gdisk /dev/sda
 ```
 
 This interactive CLI program allows you to enter commands for managing your HD.
@@ -85,14 +85,14 @@ I'm going to show you only the commands you need to enter.
 
 #### Clear partitions table
 
-```
+```bash
    Command: O
    Y
 ```
 
 #### EFI partition (BOOT)
 
-```
+```bash
    Command: n
    ENTER
    ENTER
@@ -105,7 +105,7 @@ I'm going to show you only the commands you need to enter.
 
 #### Root partition (ROOT)
 
-```
+```bash
    Command: N
    ENTER
    ENTER
@@ -118,51 +118,49 @@ I'm going to show you only the commands you need to enter.
 
 #### Save changes and exit
 
-```
+```bash
    Command: w
    Y
 ```
 
 ### Format partitions
 
-```
-   # mkfs.vfat -n BOOT /dev/sda1
-   # mkfs.btrfs -L ROOT /dev/sda2
+```bash
+   mkfs.vfat -n BOOT /dev/sda1
+   mkfs.btrfs -L ROOT /dev/sda2
 ```
 
 ### Mount partitions
 
-```
-   # mount /dev/sda2 /mnt
+```bash
+   mount /dev/sda2 /mnt
 ```
 
 ### Btrfs Create Subvol
 
-```
-   # cd /mnt
-   
-   # btrfs su cr @
-   # btrfs su cr @home
-   # btrfs su cr @images
-   # btrfs su cr @snapshots
-   # btrfs su cr @var_log
+```bash
+   cd /mnt
 
-   # umount /mnt
+   btrfs su cr @
+   btrfs su cr @home
+   btrfs su cr @snapshots
+   btrfs su cr @var_log
+
+   umount /mnt
 ```
 
 ### Mount partitions on btrfs partitions
 
-```
-   # mount -o compress=zstd:1,noatime,subvol=@ /dev/sda2 /mnt
+```bash
+   mount -o compress=zstd:1,noatime,subvol=@ /dev/sda2 /mnt
 
-   # mkdir -p /mnt/{boot/efi,home,.snapshots,var/{log,lib/libvirt/images}}
+   mkdir -p /mnt/{boot/efi,home,.snapshots,var/log}
 
-   # mount -o compress=zstd:1,noatime,subvol=@home /dev/sda2 /mnt/home
-   # mount -o compress=zstd:1,noatime,subvol=@images /dev/sda2 /mnt/var/lib/libvirt/images
-   # mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sda2 /mnt/.snapshots
-   # mount -o compress=zstd:1,noatime,subvol=@var_log /dev/sda2 /mnt/var/log
+   mount -o compress=zstd:1,noatime,subvol=@home /dev/sda2 /mnt/home
+   mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sda2 /mnt/.snapshots
+   mount -o compress=zstd:1,noatime,subvol=@var_log /dev/sda2 /mnt/var/log
 
-   # mount /dev/sda1 /mnt/boot/efi
+   mount /dev/sda1 /mnt/boot/efi
 ```
 
 If you run the `lsblk` command you should see something like this:
@@ -172,7 +170,6 @@ If you run the `lsblk` command you should see something like this:
    sda     254:0   0  232.9G  0 disk
    ├─sda1  254:1   0    512G  0 part /mnt/boot
    └─sda2  254:2   0  231.5G  0 part /mnt/.snapshots
-                                     /mnt/var/lib/libvirt/images
                                      /mnt/var/log
                                      /mnt/home
                                      /mnt
@@ -182,69 +179,69 @@ If you run the `lsblk` command you should see something like this:
 
 ### Install Arch packages
 
-```
-   # pacstrap -K /mnt base base-devel linux linux-firmware vim nano git reflector rsync
+```bash
+   pacstrap -K /mnt base base-devel linux linux-firmware vim nano git reflector rsync
 ```
 
 ### Generate fstab file
 
-```
-   # genfstab -U /mnt >> /mnt/etc/fstab
+```bash
+   genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
 ## Add basic configuration
 
 ### Enter the new system
 
-```
-   # arch-chroot /mnt
+```bash
+   arch-chroot /mnt
 ```
 
 ### Configure timezone
 
 For this example I'll use "Asia/Manila", but adapt it to your zone.
 
-```
-   # ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
-   # hwclock --systohc
+```bash
+   ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
+   hwclock --systohc
 
 
-   # reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+   reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 
-   # pacman -Syy
+   pacman -Syy
 ```
 
 ### Language-related settings
 
-```
-   # vim /etc/locale.gen
+```bash
+   vim /etc/locale.gen
 ```
 
 Now you have to uncomment the language of your choice, for example
 `en_US.UTF-8 UTF-8`.
 
-```
-   # locale-gen
+```bash
+   locale-gen
 ```
 
 Set locale:
 
-```
-   # echo LANG=en_US.UTF-8 > /etc/locale.conf
+```bash
+   echo LANG=en_US.UTF-8 > /etc/locale.conf
 ```
 
 ### Choose a name for your computer
 
-Assuming your computer is known as "archlinux":
+Assuming your computer is known as `my-hostname`:
 
-```
-   # echo archlinux > /etc/hostname
+```bash
+   echo my-hostname > /etc/hostname
 ```
 
 ### Adding content to the hosts file
 
-```
-   # vim /etc/hosts
+```bash
+   vim /etc/hosts
 ```
 
 And add this content to the file:
@@ -252,17 +249,17 @@ And add this content to the file:
 ```
    127.0.0.1    localhost
    ::1          localhost
-   127.0.1.1    archlinux.localdomain   archlinux
+   127.0.1.1    my-hostname.localdomain   my-hostname
 ```
 
-Replace "hostname" with your computer name.
+> Replace "my-hostname" with your hostname.
 
 ## Install packages
 
 Enable color & adjust pacman parallel download
 
-```
-   # nano /etc/pacman.conf
+```bash
+   nano /etc/pacman.conf
 ```
 
 ### Uncomment
@@ -274,31 +271,31 @@ Enable color & adjust pacman parallel download
 
 Clone and Install packages
 
-```
-   # git clone https://github.com/Brix101/arch-i3-btrfs-guide.git
-   # cd arch-i3-btrfs-guid
-   # pacman -S --needed - < LIST.txt
+```bash
+   git clone https://github.com/Brix101/arch-install-guide.git
+   cd arch-i3-btrfs-guid
+   pacman -S --needed - < LIST.txt
 ```
 
 ### Update root password
 
-```
-   # passwd
+```bash
+   passwd
 ```
 
 ### Add your user
 
 Assuming your chosen user is "brix":
 
-```
-   # useradd -m -G network,docker,power,rfkill,users,video,storage,audio,wheel,input -s /bin/zsh brix
-   # passwd brix
+```bash
+   useradd -m -G network,docker,power,rfkill,users,video,storage,audio,wheel,input -s /bin/zsh brix
+   passwd brix
 ```
 
 ### Grant root access to our user
 
-```
-   # visudo /etc/sudoers
+```bash
+   visudo /etc/sudoers
 ```
 
 If you prefer not to be prompted for a password every time you run a command
@@ -317,9 +314,9 @@ uncomment this line:
 
 ### Install bootloader
 
-```
-   # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
-   # grub-mkconfig -o /boot/grub/grub.cfg
+```bash
+   grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
+   grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### Add btrfs on mkinitcpio
@@ -332,8 +329,8 @@ add on binaries for system repair
 
 ### Mkinitcpio
 
-```
-   # mkinitcpio -p linux
+```bash
+   mkinitcpio -p linux
 ```
 
 You can replace "ArchLinux" with the id of your choice.
@@ -342,26 +339,26 @@ You can replace "ArchLinux" with the id of your choice.
 
 These services will be started automatically when the system boots up.
 
-```
-   # systemctl enable avahi-daemon
-   # systemctl enable bluetooth
-   # systemctl enable haveged
-   # systemctl enable fstrim.timer
-   # systemctl enable sshd
-   # systemctl enable dhcpcd
-   # systemctl enable NetworkManager
-   # systemctl enable reflector.timer
-   # systemctl enable upower
-   # systemctl enable acpid
-   # systemctl enable firewalld
+```bash
+   systemctl enable avahi-daemon
+   systemctl enable bluetooth
+   systemctl enable haveged
+   systemctl enable fstrim.timer
+   systemctl enable sshd
+   systemctl enable dhcpcd
+   systemctl enable NetworkManager
+   systemctl enable reflector.timer
+   systemctl enable upower
+   systemctl enable acpid
+   systemctl enable firewalld
 ```
 
 ### Final steps
 
-```
-   # exit
-   # umount -a
-   # reboot
+```bash
+   exit
+   umount -a
+   reboot
 ```
 
 ## Post-install configuration
