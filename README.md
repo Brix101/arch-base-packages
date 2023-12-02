@@ -1,4 +1,4 @@
-# Arch + i3-gaps Install Guide
+# Arch Install Guide
 
 ## Internet connection
 
