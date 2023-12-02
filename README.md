@@ -203,7 +203,7 @@ For this example I'll use "Asia/Manila", but adapt it to your zone.
 
 ```bash
    ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
-   hwclock --systohc
+   hwclock --systohc --utc
 
 
    reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
