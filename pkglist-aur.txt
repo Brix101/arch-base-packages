@@ -1,0 +1,10 @@
+autotiling
+google-chrome
+paru
+postman-bin
+snapper-support
+spotify
+swaync
+swayshot
+visual-studio-code-bin
+wob
