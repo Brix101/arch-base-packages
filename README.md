@@ -272,7 +272,7 @@ Enable color & adjust pacman parallel download
 Clone and Install packages
 
 ```bash
-   git clone https://github.com/Brix101/arch-install-guide.git
+   git clone https://github.com/Brix101/arch-guide.git
    cd arch-i3-btrfs-guid
    pacman -S --needed - < LIST.txt
 ```
@@ -315,7 +315,7 @@ uncomment this line:
 ### Install bootloader
 
 ```bash
-   grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
+   grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
    grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
