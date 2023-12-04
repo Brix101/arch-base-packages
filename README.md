@@ -379,13 +379,13 @@ can log in with the root user and the password chosen in the previous step.
 ### Login into newly created user
 
 ```
-   # su - thinkpad
+   # su - my-hostname
    $ xdg-user-dirs-update
 ```
 
 ### Install AUR package manager
 
-In this guide we'll install [yay](https://github.com/Jguer/yay) as the
+In this guide we'll install [paru](https://aur.archlinux.org/paru) as the
 AUR package manager. More about [AUR](https://aur.archlinux.org/).
 
 TL;DR AUR is a Community-driven package repository.
