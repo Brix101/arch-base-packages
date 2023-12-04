@@ -1,0 +1,10 @@
+arc-gtk-theme
+lxappearance
+ly
+papirus-icon-theme
+sway
+swaybg
+swayidle
+swaylock
+terminus-font
+thunar
