@@ -325,6 +325,8 @@ uncomment this line:
    grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+You can replace "GRUB" with the id of your choice.
+
 ### Add btrfs on mkinitcpio
 
 add on binaries for system repair
@@ -342,8 +344,6 @@ add on binaries for system repair
 ```bash
    mkinitcpio -p linux
 ```
-
-You can replace "ArchLinux" with the id of your choice.
 
 ### Enable SSH, NetworkManager and DHCP
 
@@ -378,9 +378,9 @@ can log in with the root user and the password chosen in the previous step.
 
 ### Login into newly created user
 
-```
-   # su - my-hostname
-   $ xdg-user-dirs-update
+```bash
+    su - my-hostname
+    xdg-user-dirs-update
 ```
 
 ### Install AUR package manager
@@ -390,12 +390,13 @@ AUR package manager. More about [AUR](https://aur.archlinux.org/).
 
 TL;DR AUR is a Community-driven package repository.
 
-```
-   $ mkdir Sources
-   $ cd Sources
-   $ git clone https://aur.archlinux.org/paru.git
-   $ cd paru
-   $ makepkg -si
+```bash
+    rustup install stable
+    mkdir Sources
+    cd Sources
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
 ```
 
 # `Install desktop manager /display manager `
