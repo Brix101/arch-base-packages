@@ -22,8 +22,6 @@ them from the best connection mirror.
 select your country mirrorlist or remove country
 
 ```bash
-   pacman -Sy
-   pacman -S reflector
    reflector --country SG --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
@@ -303,16 +301,6 @@ Assuming your chosen user is "brix":
 ```bash
    visudo /etc/sudoers
 ```
-
-If you prefer not to be prompted for a password every time you run a command
-with "sudo" privileges you need to uncomment this line:
-
-```
-   %wheel ALL=(ALL) NOPASSWD: ALL
-```
-
-Or if you prefer the standard behavior of most Linux distros you need to
-uncomment this line:
 
 ```
    %wheel ALL=(ALL) ALL
