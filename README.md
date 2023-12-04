@@ -144,7 +144,9 @@ I'm going to show you only the commands you need to enter.
    btrfs su cr @
    btrfs su cr @home
    btrfs su cr @snapshots
-   btrfs su cr @var_log
+   btrfs su cr @log
+   btrfs su cr @pkg
+   btrfs su cr @docker
 
    umount /mnt
 ```
@@ -154,11 +156,13 @@ I'm going to show you only the commands you need to enter.
 ```bash
    mount -o compress=zstd:1,noatime,subvol=@ /dev/sda2 /mnt
 
-   mkdir -p /mnt/{boot/efi,home,.snapshots,var/log}
+   mkdir -p /mnt/{boot/efi,home,.snapshots,var/{log,lib/docker,cache/pacman/pkg}}
 
    mount -o compress=zstd:1,noatime,subvol=@home /dev/sda2 /mnt/home
    mount -o compress=zstd:1,noatime,subvol=@snapshots /dev/sda2 /mnt/.snapshots
-   mount -o compress=zstd:1,noatime,subvol=@var_log /dev/sda2 /mnt/var/log
+   mount -o compress=zstd:1,noatime,subvol=@log /dev/sda2 /mnt/var/log
+   mount -o compress=zstd:1,noatime,subvol=@pkg /dev/sda2 /mnt/var/cache/pacman/pkg
+   mount -o compress=zstd:1,noatime,subvol=@docker /dev/sda2 /mnt/var/lib/docker
 
    mount /dev/sda1 /mnt/boot/efi
 ```
@@ -170,6 +174,8 @@ If you run the `lsblk` command you should see something like this:
    sda     254:0   0  232.9G  0 disk
    ├─sda1  254:1   0    512G  0 part /mnt/boot
    └─sda2  254:2   0  231.5G  0 part /mnt/.snapshots
+                                     /mnt/var/lib/docker
+                                     /mnt/var/cache/pacman/pkg
                                      /mnt/var/log
                                      /mnt/home
                                      /mnt
@@ -322,6 +328,10 @@ uncomment this line:
 ### Add btrfs on mkinitcpio
 
 add on binaries for system repair
+
+```bash
+   vim /etc/mkinitcpio.conf
+```
 
 ```
    BINARIES=(btrfs)
