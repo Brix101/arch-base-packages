@@ -1,0 +1,16 @@
+base
+base-devel
+btrfs-progs
+efibootmgr
+git
+grub
+intel-ucode
+linux
+linux-firmware
+networkmanager
+openssh
+reflector
+rsync
+sudo
+vim
+zsh
